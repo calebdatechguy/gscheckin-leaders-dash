@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Small Groups</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Custom styles for the slide-in menu, user dropdown, and hover effects */
+        .menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .menu.open {
+            transform: translateX(0);
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+        .overlay.open {
+            display: block;
+        }
+        .menu-items {
+            padding-top: 4rem;
+        }
+        .group-item {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .group-item:hover {
+            transform: scale(1.05);
+            background-color: #4a5568;
+            cursor: pointer;
+        }
+
+        /* Animation for user dropdown */
+        .dropdown {
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            transform: translateY(-20px);
+            visibility: hidden;
+            position: absolute;
+            right: 1rem;
+            top: 3rem;
+            background-color: #2d3748;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            width: 12rem;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+            z-index: 30;
+        }
+        .dropdown.open {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-800 text-white">
+    <div id="overlay" class="overlay"></div>
+
+    <header class="w-full fixed top-0 z-20 bg-gray-700 shadow-md py-4 px-6">
+        <div class="flex justify-between items-center">
+            <button id="menu-btn" class="text-xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+            <img src="https://placehold.co/100x50" alt="Your Logo" class="h-8"> <!-- Logo Here -->
+            <button id="user-btn" class="text-xl focus:outline-none relative">
+                <i class="far fa-user-circle"></i>
+            </button>
+        </div>
+    </header>
+
+    <nav id="menu" class="menu bg-gray-700 w-64 h-full fixed top-0 left-0 z-10 shadow-md py-4 px-6">
+        <ul class="menu-items">
+            <li><a href="#" class="text-white py-2 block">GS Checkin</a></li>
+            <li><a href="#" class="text-white py-2 block">Graystone Admin</a></li>
+        </ul>
+    </nav>
+
+    <div id="user-dropdown" class="dropdown">
+        <div class="flex items-center mb-3">
+            <img src="https://placehold.co/40x40" alt="User profile picture" class="rounded-full mr-2">
+            <div class="text-white text-sm">
+                <div>John Doe</div>
+                <div class="text-gray-400 text-xs">Age: 34</div>
+            </div>
+        </div>
+        <div class="border-t border-gray-600">
+            <a href="#" class="text-blue-400 hover:text-blue-300 block py-2">Logout</a>
+        </div>
+    </div>
+
+    <div class="pt-20 pb-4 px-4">
+        <div class="max-w-md mx-auto">
+            <h2 class="text-xl font-bold mb-4">Your Small Groups</h2> <!-- Title Here -->
+            <ul class="space-y-4 mt-4">
+                <li class="bg-gray-700 shadow rounded-md p-4 flex justify-between items-center group-item">
+                    <span class="flex items-center">
+                        <img class="h-10 w-10 bg-black rounded-full" src="https://placehold.co/40" alt="Group logo placeholder">
+                        <span class="ml-4">7th Grade Boys</span>
+                    </span>
+                    <span>18 Students</span>
+                </li>
+                <li class="bg-gray-700 shadow rounded-md p-4 flex justify-between items-center group-item">
+                    <span class="flex items-center">
+                        <img class="h-10 w-10 bg-black rounded-full" src="https://placehold.co/40" alt="Group logo placeholder">
+                        <span class="ml-4">11th Grade Boys</span>
+                    </span>
+                    <span>11 Students</span>
+                </li>
+                <!-- Repeat for each group -->
+            </ul>
+            <div class="flex justify-center mt-6">
+                <button class="text-white font-light py-2 px-4 rounded border-2 border-gray-700 hover:border-white focus:outline-none focus:shadow-outline transition duration-300" type="button">
+                    Add Small Group
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menu-btn');
+            const userBtn = document.getElementById('user-btn');
+            const menu = document.getElementById('menu');
+            const overlay = document.getElementById('overlay');
+            const userDropdown = document.getElementById('user-dropdown');
+
+            menuBtn.addEventListener('click', () => {
+                menu.classList.toggle('open');
+                overlay.classList.toggle('open');
+            });
+
+            overlay.addEventListener('click', () => {
+                menu.classList.remove('open');
+                overlay.classList.remove('open');
+            });
+
+            userBtn.addEventListener('click', (event) => {
+                userDropdown.classList.toggle('open');
+            });
+
+            // Close the dropdown if clicked outside of it
+            document.addEventListener('click', (event) => {
+                if (!event.target.matches('#user-btn, #user-btn *')) {
+                    userDropdown.classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
