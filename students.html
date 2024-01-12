@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7th Grade Boys</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for the slide-in menu, user dropdown, and hover effects */
+        .menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            display: none;
+        }
+        .menu.open {
+            transform: translateX(0);
+            display: block;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+        .overlay.open {
+            display: block;
+        }
+        .menu-items {
+            padding-top: 4rem;
+        }
+        .group-item {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .group-item:hover {
+            background-color: #4a5568;
+            cursor: pointer;
+        }
+        /* Animation for user dropdown */
+        .dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            position: absolute;
+            right: 1rem;
+            top: 3rem;
+            background-color: #2d3748;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            width: 12rem;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+            z-index: 50;
+        }
+        .dropdown.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .check-icon {
+            font-size: 2rem; /* Adjust size as needed */
+            color: gray; /* Default color */
+            transition: color 0.3s;
+        }
+        .checked .check-icon {
+            color: #32CD32; /* Color when the item is pressed */
+        }
+        /* Additional styles if needed */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-800 text-white">
+    <div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+    <header class="w-full fixed top-0 z-20 bg-gray-700 shadow-md py-4 px-6">
+        <div class="flex justify-between items-center">
+            <button id="menu-btn" class="text-xl focus:outline-none" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <img src="https://placehold.co/100x50" alt="Your Logo" class="h-8"> <!-- Replace with your logo -->
+            <button id="user-btn" class="text-xl focus:outline-none relative" onclick="toggleDropdown()">
+                <i class="far fa-user-circle"></i>
+            </button>
+        </div>
+        <div id="user-dropdown" class="dropdown">
+            <div class="flex items-center mb-3">
+                <img src="https://placehold.co/40x40" alt="User profile picture" class="rounded-full mr-2">
+                <div class="text-white text-sm">
+                    <div>John Doe</div>
+                    <div class="text-gray-400 text-xs">Age: 34</div>
+                </div>
+            </div>
+            <div class="border-t border-gray-600">
+                <a href="#" class="text-blue-400 hover:text-blue-300 block py-2">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <nav id="menu" class="menu bg-gray-700 w-64 h-full fixed top-0 left-0 z-10 shadow-md py-4 px-6">
+        <ul class="menu-items">
+            <li><a href="#" class="text-white py-2 block">GS Checkin</a></li>
+            <li><a href="#" class="text-white py-2 block">Graystone Admin</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main content -->
+    <div class="pt-24 pb-4 px-4">
+        <div class="max-w-md mx-auto">
+            <h2 class="text-2xl font-bold mb-4 text-center">7th Grade Boys</h2>
+            <!-- List of students -->
+            <div class="space-y-4">
+                <!-- Example Student Item -->
+                <div class="bg-gray-700 flex items-center justify-between p-4 rounded-md group-item" onclick="toggleCheck(this)">
+                    <div class="flex items-center">
+                        <div class="bg-black rounded-full h-10 w-10"></div>
+                        <div class="ml-4">
+                            <div class="font-medium">John Doe</div>
+                            <div class="text-sm text-gray-400">3 Visits</div>
+                        </div>
+                    </div>
+                    <i class="far fa-check-circle check-icon"></i>
+                </div>
+                <!-- Repeat this block for each student -->
+                <div class="bg-gray-700 flex items-center justify-between p-4 rounded-md group-item" onclick="toggleCheck(this)">
+                    <div class="flex items-center">
+                        <div class="bg-black rounded-full h-10 w-10"></div>
+                        <div class="ml-4">
+                            <div class="font-medium">John Doe</div>
+                            <div class="text-sm text-gray-400">3 Visits</div>
+                        </div>
+                    </div>
+                    <i class="far fa-check-circle check-icon"></i>
+                </div>
+                <div class="bg-gray-700 flex items-center justify-between p-4 rounded-md group-item" onclick="toggleCheck(this)">
+                    <div class="flex items-center">
+                        <div class="bg-black rounded-full h-10 w-10"></div>
+                        <div class="ml-4">
+                            <div class="font-medium">John Doe</div>
+                            <div class="text-sm text-gray-400">3 Visits</div>
+                        </div>
+                    </div>
+                    <i class="far fa-check-circle check-icon"></i>
+                </div>
+                <div class="bg-gray-700 flex items-center justify-between p-4 rounded-md group-item" onclick="toggleCheck(this)">
+                    <div class="flex items-center">
+                        <div class="bg-black rounded-full h-10 w-10"></div>
+                        <div class="ml-4">
+                            <div class="font-medium">John Doe</div>
+                            <div class="text-sm text-gray-400">3 Visits</div>
+                        </div>
+                    </div>
+                    <i class="far fa-check-circle check-icon"></i>
+                </div>
+                <!-- ... -->
+            </div>
+
+            <!-- Add Student & Send Signup Link Buttons -->
+            <div class="mt-6 space-y-4">
+                <button class="flex items-center justify-center text-white font-light py-2 px-4 rounded border-2 border-gray-700 hover:border-white focus:outline-none focus:shadow-outline transition duration-300 w-full mb-4">
+                    <i class="fas fa-user-plus mr-2"></i> Add Student
+                </button>
+                <button class="flex items-center justify-center text-white font-light py-2 px-4 rounded border-2 border-gray-700 hover:border-white focus:outline-none focus:shadow-outline transition duration-300 w-full">
+                    <i class="fas fa-paper-plane mr-2"></i> Send Student Signup Link
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('open');
+        }
+
+        function closeMenu() {
+            document.getElementById('menu').classList.remove('open');
+            document.getElementById('overlay').classList.remove('open');
+        }
+
+        function toggleDropdown() {
+            document.getElementById('user-dropdown').classList.toggle('open');
+        }
+
+        // Close the dropdown if clicked outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('#user-btn, #user-btn *, #user-dropdown, #user-dropdown *')) {
+                document.getElementById('user-dropdown').classList.remove('open');
+            }
+        }
+
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+        }
+    </script>
+</body>
+</html>
